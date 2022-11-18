@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,6 +27,7 @@ public class ClosePairsDivideAndConquer {
     }
 
     public static void start() {
+        List<Point> Point = new LinkedList<Point>();
         Point P[] = {new Point(2, 3),
             new Point(12, 30),
             new Point(40, 50), new Point(5, 1), new Point(12, 10), new Point(3, 4), new Point(5, 4), new Point(60, 4)};
@@ -114,8 +116,20 @@ public class ClosePairsDivideAndConquer {
         return min;
     }
 
-    private static void recursiveClosestPair(Point[] P) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private static double recursiveClosestPair(Point[] l,int end,int start,int j) {
+        double min = Double.MAX_VALUE;
+      
+        if (l != null && end - start > 0) {
+
+            if ( start < end - 1) {
+                if (j < end) {
+                  min = Math.min(min, dist(l[start], l[j]));  
+                  return recursiveClosestPair(l,end,start,start+1); 
+                }
+ 
+            }
+        }
+        return min;
     }
 
     private static class Point {
@@ -137,6 +151,7 @@ public class ClosePairsDivideAndConquer {
     private static double[] replicate(int size) // repeats the numeric experiment
     {
         int reps = 256;
+        
         //conectar operation y times !!!!!!!
         double etime = 0;
         double operations = 0;
@@ -147,7 +162,7 @@ public class ClosePairsDivideAndConquer {
             new Point(12, 30),
             new Point(40, 50), new Point(5, 1), new Point(12, 10), new Point(3, 4), new Point(5, 4), new Point(60, 4)};
             // solves the closest pair problem recursively
-            recursiveClosestPair(P);
+            recursiveClosestPair(P,reps,i,0);
             // updates the elapsed-time and #operations
             etime += etime;
             operations += ((double) operations);
